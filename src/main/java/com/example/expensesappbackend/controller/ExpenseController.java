@@ -17,7 +17,7 @@ public class ExpenseController {
     @Autowired
     private ExpenseRepository expenseRepository;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Boolean> addExpense(@RequestBody Expense expense){
         try{
             expenseRepository.save(expense);
@@ -27,7 +27,7 @@ public class ExpenseController {
         return new ResponseEntity<>(true,HttpStatus.OK);
     }
 
-    @GetMapping("/get")
+    @GetMapping("/getAll")
     public ResponseEntity<List<Expense>> getAllExpense(){
         List<Expense> ressponse = new ArrayList<>();
         expenseRepository.findAll().forEach(e->{
