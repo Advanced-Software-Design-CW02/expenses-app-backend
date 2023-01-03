@@ -23,4 +23,5 @@ public class UserTransaction {
 
     private String note;
     private String date;
+    private String status;
 }

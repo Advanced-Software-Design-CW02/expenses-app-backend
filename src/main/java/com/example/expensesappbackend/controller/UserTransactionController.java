@@ -43,7 +43,7 @@ public class UserTransactionController {
     public ResponseEntity<Boolean> createUserTransaction(@RequestParam Long categoryID,
                                                          @RequestParam Long userID ,
                                                          @RequestParam String basicType ,
-                                                         @RequestParam int amount,
+                                                         @RequestParam double amount,
                                                          @RequestParam String note
     ){
 
@@ -53,7 +53,7 @@ public class UserTransactionController {
 
             Category category = categoryRepository.getById(categoryID);
             transactionType.setCategory(category);
-            User user = userRepository.getById(userID);
+            User user = userRepository.findById(userID).get();
 
             Transaction transaction = new Transaction();
 
@@ -66,6 +66,8 @@ public class UserTransactionController {
             userTransaction.setUser(user);
             userTransaction.setTransaction(t1);
             userTransaction.setNote(note);
+            userTransaction.setStatus(transactionType.calculatePresentage(category,amount));
+
             userTransactionRepository.save(userTransaction);
             return new ResponseEntity<>(true, HttpStatus.OK);
         }catch (Exception e){

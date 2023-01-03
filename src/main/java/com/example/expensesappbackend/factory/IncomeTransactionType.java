@@ -1,11 +1,9 @@
 package com.example.expensesappbackend.factory;
-
 import com.example.expensesappbackend.model.Category;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
+
 
 @Data
 public class IncomeTransactionType implements TransactionType {
@@ -31,6 +29,24 @@ public class IncomeTransactionType implements TransactionType {
     @Override
     public String getBaseType() {
         return this.basicType;
+    }
+
+    @Override
+    public String calculatePresentage(Category category, double amount) {
+        String transactionStatus=null;
+
+        int ratio = (int)(amount/category.getBudget())*100;
+        if(90<ratio){
+            transactionStatus="High";
+        }else if(70<ratio){
+            transactionStatus="Medium";
+        }else if(40<ratio){
+            transactionStatus="Normal";
+        }else if(0<ratio){
+            transactionStatus="Very Low";
+        }
+
+        return transactionStatus;
     }
 
 }

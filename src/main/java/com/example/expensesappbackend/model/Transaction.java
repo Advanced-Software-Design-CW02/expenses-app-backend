@@ -23,7 +23,7 @@ public class Transaction {
     private Long id;
     private String baseType;
     private String source;
-    private int amount;
+    private double amount;
 
     @JsonIgnore
     @OneToMany(mappedBy = "transaction")

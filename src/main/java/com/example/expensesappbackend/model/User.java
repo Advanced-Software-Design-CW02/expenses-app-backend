@@ -26,9 +26,26 @@ public class User {
     @OneToMany(mappedBy = "user")
     private  List<UserTransaction> userTransactions = new ArrayList<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private  List<Category> categories = new ArrayList<>();
+
+    public void addUseCategories(Category category){
+        categories.add(category);
+    }
+
+    public void removeUseCategories(Category category){
+        categories.remove(category);
+    }
+
+    public void addUserTransactions(UserTransaction userTransaction){
+        userTransactions.add(userTransaction);
+    }
+
+    public void removeUserTransactions(UserTransaction userTransaction){
+        userTransactions.remove(userTransaction);
+    }
+
+
 
 
 }

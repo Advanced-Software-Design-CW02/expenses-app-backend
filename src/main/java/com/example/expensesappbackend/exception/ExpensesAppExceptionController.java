@@ -19,6 +19,6 @@ public class ExpensesAppExceptionController {
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<Object> exception(Exception exception) {
-        return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

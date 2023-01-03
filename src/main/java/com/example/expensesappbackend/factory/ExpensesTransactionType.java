@@ -32,4 +32,25 @@ public class ExpensesTransactionType implements TransactionType{
     public String getBaseType() {
         return this.basicType;
     }
+
+    @Override
+    public String calculatePresentage(Category category, double amount) {
+        String transactionStatus=null;
+        int ratio = (int)(amount/category.getBudget())*100;
+        if(90<ratio){
+            transactionStatus="High";
+        }else if(70<ratio){
+            transactionStatus="Moderate";
+        }else if(50<ratio){
+            transactionStatus="Medium";
+        }else if(30<ratio){
+            transactionStatus="Normal";
+        }else if(10<ratio){
+            transactionStatus="Low";
+        }else if(0<ratio){
+            transactionStatus="Very Low";
+        }
+
+        return transactionStatus;
+    }
 }
