@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController()
 @RequestMapping("/user")
+@CrossOrigin(origins = "*",methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
 public class UserController {
     @Autowired
     UserRepository userRepository;
@@ -24,9 +25,10 @@ public class UserController {
     @Autowired
     UserTransactionRepository userTransactionRepository;
 
-    @PostMapping("/create")
+    @GetMapping("/create")
     public ResponseEntity<User> createUser(@RequestParam String firstName, @RequestParam String lastName , @RequestParam String email,
                                            @RequestParam String age,
+                                           @RequestParam String password,
                                            @RequestParam String job){
 
         User response=null;
@@ -38,6 +40,7 @@ public class UserController {
             user.setEmail(email);
             user.setAge(age);
             user.setJob(job);
+            user.setPassword(password);
             response =userRepository.save(user);
         }catch (Exception e){
             throw new DataNotCreateException(e.getMessage());
@@ -104,7 +107,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/addcategory")
+    @GetMapping("/addcategory")
     public ResponseEntity<User> addCategoryToUser(@RequestParam Long user_id , @RequestParam Long category_id){
 
         try{
@@ -123,7 +126,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/removecategory")
+    @GetMapping("/removecategory")
     public ResponseEntity<User> removeCategoryToUser(@RequestParam Long user_id , @RequestParam Long category_id){
 
         try{
@@ -145,6 +148,22 @@ public class UserController {
 
     }
 
+    @GetMapping("/login")
+    public ResponseEntity<User> userLogin(@RequestParam String email ,@RequestParam String password) throws Exception {
+        List<User> userList = userRepository.findAll();
+        User response= null;
+        for(User user : userList){
+            if(user.getEmail().equals(email)&&user.getPassword().equals(password)){
+                response = user;
+            }
+        }
+
+        if(response==null){
+            throw new Exception("Password or Email Invalid");
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
 
 }

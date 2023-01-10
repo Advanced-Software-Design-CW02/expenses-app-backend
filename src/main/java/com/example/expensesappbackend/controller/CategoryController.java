@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 @RestController()
 @RequestMapping("/category")
+@CrossOrigin(origins = "*",methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
 public class CategoryController {
     @Autowired
     CategoryRepository categoryRepository;
@@ -65,6 +66,16 @@ public class CategoryController {
         }
     }
 
+    @PutMapping ("/update")
+    public ResponseEntity<Integer> updateCategoryById(@RequestParam Long id,@RequestParam String categoryName ,@RequestParam double categoryBudget,@RequestParam Long user_id) throws Exception {
+        try {
+            int updateID= categoryRepository.updateCategory(id,categoryName,categoryBudget,user_id);
+            return new ResponseEntity<>(updateID, HttpStatus.OK);
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 
 
 
