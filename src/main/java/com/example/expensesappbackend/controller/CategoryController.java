@@ -67,9 +67,9 @@ public class CategoryController {
     }
 
     @PutMapping ("/update")
-    public ResponseEntity<Integer> updateCategoryById(@RequestParam Long id,@RequestParam String categoryName ,@RequestParam double categoryBudget,@RequestParam Long user_id) throws Exception {
+    public ResponseEntity<Integer> updateCategoryById(@RequestParam Long id,@RequestParam String categoryName ,@RequestParam double categoryBudget,@RequestParam Long user_id ,  @RequestParam String type) throws Exception {
         try {
-            int updateID= categoryRepository.updateCategory(id,categoryName,categoryBudget,user_id);
+            int updateID= categoryRepository.updateCategory(id,categoryName,categoryBudget,user_id,type);
             return new ResponseEntity<>(updateID, HttpStatus.OK);
 
         }catch (Exception e){
