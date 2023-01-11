@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class IncomeTransactionType implements TransactionType {
     private String basicType;
-    private List<Category> category;
+    private Category category;
     @Override
     public void showDetails() {
         System.out.println("Income Transaction type");
@@ -23,7 +23,7 @@ public class IncomeTransactionType implements TransactionType {
     @Override
     public void setCategory(Category category){
 
-        this.category.add(category);
+        this.category=category;
     }
 
     @Override

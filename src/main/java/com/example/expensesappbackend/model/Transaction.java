@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name ="Expenses")
+@Table(name ="Transaction")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -29,8 +29,13 @@ public class Transaction {
     @OneToMany(mappedBy = "transaction")
     private List<UserTransaction> userTransactions = new ArrayList<>();
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "transaction")
-    private List<Category> categories = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name="category_id")
+    private Category category ;
+
+    public void addCategory(Category category){
+        this.category=category;
+    }
 
 }

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 public class Category {
@@ -15,9 +17,9 @@ public class Category {
     private double budget;
     private String type;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "transaction_id",referencedColumnName = "id")
-    private Transaction transaction;
+    @JsonIgnore
+    @OneToMany(mappedBy = "category")
+    private List<Transaction> transaction;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
