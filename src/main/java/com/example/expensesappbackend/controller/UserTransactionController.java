@@ -70,6 +70,8 @@ public class UserTransactionController {
             userTransaction.setTransaction(t1);
             userTransaction.setNote(note);
             userTransaction.setDate(date);
+
+
             if(recurring){
                 userTransaction.setRecurring("true");
             }else {
@@ -119,7 +121,7 @@ public class UserTransactionController {
                 transactionDTO.setStatus(userTransaction.getStatus());
                 transactionDTO.setTransactionID(userTransaction.getTransaction().getId());
                 transactionDTO.setTransactionAmount(userTransaction.getTransaction().getAmount());
-                transactionDTO.setTransactionBaseType(userTransaction.getTransaction().getBaseType());
+                transactionDTO.setTransactionBaseType(userTransaction.getTransaction().getCategory().getType());
                 transactionDTO.setCategory(userTransaction.getTransaction().getCategory());
                 transactionDTO.setRecurring(Boolean.parseBoolean(userTransaction.getRecurring()));
 

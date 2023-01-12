@@ -46,17 +46,19 @@ public class ReportController {
             for(Category category : userCategory){
                 double total =0;
                 for (UserTransaction transaction : userTransactionList){
-                    if((transaction.getUser().getId().equals(userID))&&transaction.getTransaction().getCategory().equals(category)){
-                        total =total=transaction.getTransaction().getAmount();
-                        SpendCategoryDTO spendCategoryDTO = new SpendCategoryDTO();
-                        spendCategoryDTO.setCategoryBudegt(category.getBudget());
-                        spendCategoryDTO.setCategoryName(category.getName());
-                        spendCategoryDTO.setCategoryType(category.getType());
-                        spendCategoryDTO.setTotalSpend(total);
+                    if((transaction.getUser().getId()==userID)&&transaction.getTransaction().getCategory().getId().equals(category.getId())){
+                        total =total+transaction.getTransaction().getAmount();
 
-                        spendCategoryDTOS.add(spendCategoryDTO);
                     }
                 }
+
+                SpendCategoryDTO spendCategoryDTO = new SpendCategoryDTO();
+                spendCategoryDTO.setCategoryBudegt(category.getBudget());
+                spendCategoryDTO.setCategoryName(category.getName());
+                spendCategoryDTO.setCategoryType(category.getType());
+                spendCategoryDTO.setTotalSpend(total);
+
+                spendCategoryDTOS.add(spendCategoryDTO);
             }
 
         }catch (Exception e){

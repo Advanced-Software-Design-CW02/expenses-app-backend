@@ -73,7 +73,7 @@ public class UserController {
 
     }
 
-    @PutMapping("/update")
+    @GetMapping("/update")
     public ResponseEntity <User> updateUser( @RequestParam Long user_id,@RequestParam String firstName ,@RequestParam String lastName ,@RequestParam String email,@RequestParam  String age ,@RequestParam String job ){
         try{
             User user = userRepository.findById(user_id).get();
@@ -86,15 +86,15 @@ public class UserController {
             }
 
             if(!email.isEmpty()){
-                user.setFirstName(email);
+                user.setEmail(email);
             }
 
             if(!age.isEmpty()){
-                user.setFirstName(age);
+                user.setAge(age);
             }
 
             if(!job.isEmpty()){
-                user.setFirstName(job);
+                user.setJob(job);
             }
 
             User response =userRepository.save(user);
