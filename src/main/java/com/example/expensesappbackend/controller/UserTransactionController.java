@@ -121,6 +121,7 @@ public class UserTransactionController {
                 transactionDTO.setTransactionAmount(userTransaction.getTransaction().getAmount());
                 transactionDTO.setTransactionBaseType(userTransaction.getTransaction().getBaseType());
                 transactionDTO.setCategory(userTransaction.getTransaction().getCategory());
+                transactionDTO.setRecurring(Boolean.parseBoolean(userTransaction.getRecurring()));
 
 
                 userTransactionDTO.add(transactionDTO);

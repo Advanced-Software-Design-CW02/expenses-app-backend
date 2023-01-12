@@ -15,6 +15,7 @@ public class UserTransactionDTO {
     private String transactionBaseType;
     private Long transactionID;
     private Category category;
+    private boolean recurring;
 
 
 }
