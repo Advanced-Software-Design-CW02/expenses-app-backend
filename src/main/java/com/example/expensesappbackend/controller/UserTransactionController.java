@@ -148,6 +148,30 @@ public class UserTransactionController {
         return new ResponseEntity<>( true, HttpStatus.OK);
     }
 
+    @GetMapping("/updateTransaction")
+    public ResponseEntity<Boolean> updateUserTransaction(@RequestParam Long categoryID,
+                                                         @RequestParam Long userID ,
+                                                         @RequestParam Long transactionID ,
+                                                         @RequestParam Long userTransactionID ,
+                                                         @RequestParam double amount,
+                                                         @RequestParam String note,
+                                                         @RequestParam String date,
+                                                         @RequestParam(required = false) boolean recurring
+    ) throws Exception {
+
+        User user = userRepository.findById(userID).get();
+        Category category = categoryRepository.findById(categoryID).get();
+        UserTransaction userTransaction = userTransactionRepository.findById(transactionID).get();
+
+        int transactionUpdate = transactionRepository.updateTransaction(transactionID,amount,category.getType(),category.getId());
+        String recurring_string ="false";
+        if(recurring){
+            recurring_string = "true";
+        }
+        int userTransactionUpdate = userTransactionRepository.updateUserTransaction(userTransactionID,date,note,recurring_string);
+
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
 
 
 }
