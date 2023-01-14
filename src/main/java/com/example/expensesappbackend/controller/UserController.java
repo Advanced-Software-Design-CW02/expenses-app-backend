@@ -82,7 +82,7 @@ public class UserController {
             }
 
             if(!lastName.isEmpty()){
-                user.setFirstName(lastName);
+                user.setLastName(lastName);
             }
 
             if(!email.isEmpty()){
