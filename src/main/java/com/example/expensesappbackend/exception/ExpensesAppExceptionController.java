@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+//Manage the Exception globally
 @ControllerAdvice
 public class ExpensesAppExceptionController {
     @ExceptionHandler(value = DataNotFoundException.class)

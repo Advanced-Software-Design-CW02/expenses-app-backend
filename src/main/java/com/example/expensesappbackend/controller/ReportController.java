@@ -33,6 +33,7 @@ public class ReportController {
     @Autowired
     TransactionRepository transactionRepository;
 
+    //create the category spend
     @GetMapping("/categorySpend")
     public ResponseEntity<List<SpendCategoryDTO>> getSpendAgaistCategory(@RequestParam Long userID) throws Exception {
         List<SpendCategoryDTO> spendCategoryDTOS = new ArrayList<>();

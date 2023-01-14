@@ -38,7 +38,7 @@ public class UserTransactionController {
     TransactionRepository transactionRepository;
 
 
-
+    //create the UserTransaction
     @GetMapping("/create")
     @Transactional
     public ResponseEntity<Boolean> createUserTransaction(@RequestParam Long categoryID,
@@ -51,26 +51,24 @@ public class UserTransactionController {
 
         try{
             TransactionTypeFactory typeFactory = new TransactionTypeFactory();
-
-
+            //get category by the Id
             Category category = categoryRepository.findById(categoryID).get();
             TransactionType transactionType = typeFactory.getType(category.getType());
             transactionType.setCategory(category);
+            //get user by id
             User user = userRepository.findById(userID).get();
-
+            //create new transaction
             Transaction transaction = new Transaction();
-
             transaction.setAmount(amount);
             transaction.setBaseType(transactionType.getBaseType());
             transaction.addCategory(category);
             Transaction t1 =transactionRepository.save(transaction);
-
+            //create UserTransaction and save
             UserTransaction userTransaction = new UserTransaction();
             userTransaction.setUser(user);
             userTransaction.setTransaction(t1);
             userTransaction.setNote(note);
             userTransaction.setDate(date);
-
 
             if(recurring){
                 userTransaction.setRecurring("true");
@@ -100,13 +98,14 @@ public class UserTransactionController {
 
     }
 
+    //get the transaction by id
     @GetMapping("/getTransactionByUserID")
     public ResponseEntity<List<UserTransactionDTO>> createUserTransaction(@RequestParam Long userID) throws Exception {
         List<UserTransaction> userTransactionList = new ArrayList<>();
         List<UserTransactionDTO> userTransactionDTO = new ArrayList<>();
 
         try{
-
+            // get the user object by id
             User user = userRepository.findById(userID).get();
             userTransactionList = userTransactionRepository.findAll();
             userTransactionList.stream().filter(userTransaction ->
@@ -114,7 +113,6 @@ public class UserTransactionController {
 
             for(UserTransaction userTransaction : userTransactionList){
                 UserTransactionDTO transactionDTO = new UserTransactionDTO();
-
                 transactionDTO.setId(userTransaction.getId());
                 transactionDTO.setDate(userTransaction.getDate());
                 transactionDTO.setNote(userTransaction.getNote());
@@ -124,11 +122,7 @@ public class UserTransactionController {
                 transactionDTO.setTransactionBaseType(userTransaction.getTransaction().getCategory().getType());
                 transactionDTO.setCategory(userTransaction.getTransaction().getCategory());
                 transactionDTO.setRecurring(Boolean.parseBoolean(userTransaction.getRecurring()));
-
-
                 userTransactionDTO.add(transactionDTO);
-
-
             }
 
         }catch (Exception e){
@@ -137,6 +131,7 @@ public class UserTransactionController {
         return new ResponseEntity<>( userTransactionDTO, HttpStatus.OK);
     }
 
+    //delete userTransaction
     @GetMapping("/delete")
     public ResponseEntity<Boolean> deleteUserTransaction(@RequestParam Long userTransactionID) throws Exception {
         try{
@@ -148,6 +143,7 @@ public class UserTransactionController {
         return new ResponseEntity<>( true, HttpStatus.OK);
     }
 
+    //update the userTransaction
     @GetMapping("/updateTransaction")
     public ResponseEntity<Boolean> updateUserTransaction(@RequestParam Long categoryID,
                                                          @RequestParam Long userID ,

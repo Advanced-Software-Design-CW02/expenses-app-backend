@@ -19,6 +19,7 @@ public class CategoryController {
     @Autowired
     CategoryRepository categoryRepository;
 
+    //create the category
     @PostMapping("/create")
     public ResponseEntity<Category> createCategory(@RequestBody Category category){
         Category responses = null;
@@ -31,6 +32,7 @@ public class CategoryController {
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
+    //get all Category
     @GetMapping("/getall")
     public ResponseEntity<List<Category>> getAllCategory(){
         List<Category> responses=null;
@@ -43,6 +45,7 @@ public class CategoryController {
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
+    //get category
     @GetMapping("/getcategory")
     public ResponseEntity<Category> getCategoryById(@RequestParam Long id){
         Category responses=null;
@@ -55,6 +58,7 @@ public class CategoryController {
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
+    //delete category by ID
     @DeleteMapping("/delete")
     public ResponseEntity<Long> deleteCategoryById(@RequestParam Long id){
         try {
@@ -66,6 +70,7 @@ public class CategoryController {
         }
     }
 
+    //update the category by id
     @PutMapping ("/update")
     public ResponseEntity<Integer> updateCategoryById(@RequestParam Long id,@RequestParam String categoryName ,@RequestParam double categoryBudget,@RequestParam Long user_id ,  @RequestParam String type) throws Exception {
         try {
